@@ -1,6 +1,6 @@
-DialogTideIntent {City}
-DialogTideIntent {City} {State}
-DialogTideIntent {Date}
+DialogueEventIntent {City}
+DialogueEventIntent {City} {State}
+DialogueEventIntent {Date}
 
 OneshotEventIntent get events
 OneshotEventIntent get tech events
