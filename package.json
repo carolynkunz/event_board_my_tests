@@ -1,0 +1,33 @@
+{
+  "name": "tech_events",
+  "version": "1.0.0",
+  "description": "Q2 project",
+  "main": "knex.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/carolynkunz/tech_events.git"
+  },
+  "keywords": [],
+  "author": "Rachelle Rathbone <rachellerathbone@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/carolynkunz/tech_events/issues"
+  },
+  "homepage": "https://github.com/carolynkunz/tech_events#readme",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "boom": "^4.1.0",
+    "express": "^4.14.0",
+    "humps": "^1.1.0",
+    "knex": "^0.12.5",
+    "morgan": "^1.7.0",
+    "pg": "^6.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  }
+}
