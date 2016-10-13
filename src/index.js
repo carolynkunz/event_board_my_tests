@@ -19,23 +19,27 @@ TechEvents.prototype.constructor = TechEvents;
 
 // ----------------------- Override AlexaSkill request and intent handlers -----------------------
 
-// TechEvents.prototype.eventHandlers.onSessionStarted = function (sessionStartedRequest, session) {
-//     console.log('onSessionStarted requestId: ' + sessionStartedRequest.requestId
-//         + ', sessionId: ' + session.sessionId);
-// };
+TechEvents.prototype.eventHandlers.onSessionStarted = function (sessionStartedRequest, session) {
+    // console.log('onSessionStarted requestId: ' + sessionStartedRequest.requestId
+    //     + ', sessionId: ' + session.sessionId);
+};
 
 // Bind to the application launch event.
 TechEvents.prototype.eventHandlers.onLaunch = function (launchRequest, session, response) {
-    console.log('onLaunch requestId: ' + launchRequest.requestId + ', sessionId: ' + session.sessionId);
+    // console.log('onLaunch requestId: ' + launchRequest.requestId + ', sessionId: ' + session.sessionId);
 
     // call out handle welcome request function to kick off the conversation.
     handleWelcomeRequest(response);
 };
 
-// TechEvents.prototype.eventHandlers.onSessionEnded = function (sessionEndedRequest, session) {
-//     console.log('onSessionEnded requestId: ' + sessionEndedRequest.requestId
-//         + ', sessionId: ' + session.sessionId);
-// };
+TechEvents.prototype.eventHandlers.getUser = function (userRequest, session) {
+
+};
+
+TechEvents.prototype.eventHandlers.onSessionEnded = function (sessionEndedRequest, session) {
+    // console.log('onSessionEnded requestId: ' + sessionEndedRequest.requestId
+    //     + ', sessionId: ' + session.sessionId);
+};
 
 TechEvents.prototype.intentHandlers = {
     'OneshotEventIntent': function (intent, session, response) {
@@ -164,13 +168,13 @@ function handleCityDialogueRequest(intent, session, response) {
 
 // Handles the dialog step where the user provides a date
 function handleDateDialogueRequest(intent, session, response) {
-    console.log('handleDateDialogueRequest: Began execution');
+    // console.log('handleDateDialogueRequest: Began execution');
     let date = getDateFromIntent(intent),
         repromptText,
         speechOutput;
     if (!date) {
-        console.log('handleDateDialogueRequest: Date hasn\'t been set, so asking '
-          + ' for date.');
+        // console.log('handleDateDialogueRequest: Date hasn\'t been set, so asking '
+        //   + ' for date.');
         repromptText = 'Please try again saying a day of the week, for example, Saturday. '
             + 'For which date would you like event information?';
         speechOutput = 'I\'m sorry, I didn\'t understand that date. ' + repromptText;
@@ -253,13 +257,13 @@ function getFinalEventResponse(cityStation, date, response) {
         if (err) {
             speechOutput = 'Sorry, the Meetup service is experiencing a problem. Please try again later';
         } else {
-          console.log('eventResponseCallback: response argument - ' + eventResponse);
+          // console.log('eventResponseCallback: response argument - ' + eventResponse);
 
           let chosenEvent = JSON.parse(eventResponse).results[0];
-          console.log('eventResponseCallback: make event request' + chosenEvent);
+          // console.log('eventResponseCallback: make event request' + chosenEvent);
             speechOutput = 'I\'ve found an event. Head to ' + chosenEvent.name
-                  + ' at ' + chosenEvent.time
-                  // + ' at ' + getFriendlyTime(chosenEvent.time)
+                  // + ' at ' + chosenEvent.time
+                  + ' at ' + getFriendlyTime(chosenEvent.time)
                   + ' on ' + getFriendlyWeekday(chosenEvent.time);
         }
 
@@ -267,9 +271,21 @@ function getFinalEventResponse(cityStation, date, response) {
     });
 }
 
-// function getFriendlyTime(epochTime){
-//   return '9pm';
-// }
+function getFriendlyTime(epochTime){
+  var now = new Date(1476383573);
+
+  var utcDate = new Date(new Date().getTime());
+  // var cat = new Date(utcDate.toString().replace(/UTC.*/g,"") + utcDate.getYear());
+  var date = utcDate.toUTCString();
+  // console.log(date);
+
+  // var splitDate = date.split('');
+  // console.log(splitDate);
+
+  // console.log(cat);
+
+  return utcDate;
+}
 
 function getFriendlyWeekday(epochTime){
  return 'Monday';
@@ -284,7 +300,7 @@ function makeEventRequest(city, date, eventResponseCallback) {
       + '&desc=False&status=upcoming&sig_id=211406069&sig=9d796cdae277e6882d092574eb0cb74c3bca0539';
     const requestUrl = url + queryString;
 
-    console.log('makeEventRequest: making request to '+ requestUrl);
+    // console.log('makeEventRequest: making request to '+ requestUrl);
     const req = https.request(requestUrl, function (res) {
       let chunks = [];
 
@@ -294,7 +310,7 @@ function makeEventRequest(city, date, eventResponseCallback) {
 
       res.on('end', function () {
         const responseBody = Buffer.concat(chunks);
-        console.log('makeEventRequest: response recieved - '+ responseBody);
+        // console.log('makeEventRequest: response recieved - '+ responseBody);
 
         eventResponseCallback(null, responseBody);
       });

@@ -24,6 +24,10 @@ AlexaSkill.prototype.requestHandlers = {
         this.eventHandlers.onLaunch.call(this, event.request, event.session, response);
     },
 
+    UserRequest: function (event, context) {
+        this.eventHandlers.onLaunch.call(this, event.request, event.session, response);
+    },
+
     IntentRequest: function (event, context, response) {
         this.eventHandlers.onIntent.call(this, event.request, event.session, response);
     },
@@ -53,6 +57,8 @@ AlexaSkill.prototype.eventHandlers = {
         throw "onLaunch should be overriden by subclass";
     },
 
+    getUser: function (sessionEndedRequest, session) {
+    },
     /**
      * Called when the user specifies an intent.
      */
@@ -83,7 +89,11 @@ AlexaSkill.prototype.intentHandlers = {};
 
 AlexaSkill.prototype.execute = function (event, context) {
     try {
+        console.log("version: " + event.version);
+        console.log("session new: " + event.session.new);
         console.log("session applicationId: " + event.session.application.applicationId);
+        console.log("session attributes: " + event.session.attributes.string);
+        console.log("user userId: " + event.session.user.userId);
 
         // Validate that this request originated from authorized source.
         if (this._appId && event.session.application.applicationId !== this._appId) {
