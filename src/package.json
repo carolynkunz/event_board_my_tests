@@ -1,0 +1,31 @@
+{
+  "name": "tech-events",
+  "version": "1.0.0",
+  "description": "A skill that allows you to find out what tech events are coming up in your city.",
+  "main": "index.js",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "morgan": "^1.7.0",
+    "alexa-sdk": "^1.0.6"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rrathbone/tech-events.git"
+  },
+  "keywords": [
+    "alexa",
+    "skill",
+    "fact"
+  ],
+  "author": "Rachelle Rathbone <rachellerathbone@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rrathbone/tech-events/issues"
+  },
+  "homepage": "https://github.com/rrathbone/tech-events#readme"
+}
