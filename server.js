@@ -12,6 +12,7 @@ app.use(morgan('dev'));
 app.use(bodyParser.json());
 
 const events = require('./routes/events');
+const skills = require('./routes/skills');
 
 app.use(events);
 
