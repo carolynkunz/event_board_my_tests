@@ -108,6 +108,7 @@ AlexaSkill.prototype.execute = function (event, context) {
 
         if (event.session.new) {
             this.eventHandlers.onSessionStarted(event.request, event.session);
+            this.eventHandlers.getUser(event.request, event.session);
         }
 
         // Route the request to the proper handler which may have been overriden.
