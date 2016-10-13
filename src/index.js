@@ -1,6 +1,6 @@
 'use strict';
 
-const APP_ID = 'amzn1.ask.skill.ea1a009f-1de9-4a35-b6ba-f3bb6c968f11';
+const APP_ID = 'amzn1.ask.skill.a119fd8c-0fa9-4a9d-928d-3c4d5cc706c4';
 
 const https = require('https');
 const http = require('http');
