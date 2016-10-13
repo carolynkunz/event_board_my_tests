@@ -1,13 +1,8 @@
 DialogueEventIntent {City}
-DialogueEventIntent {City} {State}
 DialogueEventIntent {Date}
 
 OneshotEventIntent get events
 OneshotEventIntent get tech events
-OneshotEventIntent get events for {City} {State}
-OneshotEventIntent get tech events for {City} {State}
-OneshotEventIntent get events for {City} {State} {Date}
-OneshotEventIntent get tech events for {City} {State} {Date}
 OneshotEventIntent get events for {City} {Date}
 OneshotEventIntent get tech events for {City} {Date}
 OneshotEventIntent get events for {Date}
@@ -22,10 +17,6 @@ OneshotEventIntent get the events for {Date}
 OneshotEventIntent get the tech events for {Date}
 OneshotEventIntent get event information for {City}
 OneshotEventIntent get tech event information for {City}
-OneshotEventIntent get event information for {City} {State}
-OneshotEventIntent get tech event information for {City} {State}
-OneshotEventIntent get event information for {City} {State} on {Date}
-OneshotEventIntent get tech event information for {City} {State} on {Date}
 OneshotEventIntent get event information for {City} city
 OneshotEventIntent get tech event information for {City} city
 OneshotEventIntent get event information for {City} for {Date}
@@ -34,34 +25,22 @@ OneshotEventIntent get event information for {City} on {Date}
 OneshotEventIntent get tech event information for {City} {Date}
 OneshotEventIntent get events for {City}
 OneshotEventIntent get tech events for {City}
-OneshotEventIntent get events for {City} {State}
-OneshotEventIntent get tech events for {City} {State}
-OneshotEventIntent get events for {City} {State} {Date}
-OneshotEventIntent get tech events for {City} {State} {Date}
 OneshotEventIntent get events for {City} {Date}
 OneshotEventIntent get tech events for {City} {Date}
 OneshotEventIntent event information
 OneshotEventIntent tech events information
 OneshotEventIntent event information for {City}
 OneshotEventIntent tech events information for {City}
-OneshotEventIntent event information for {City} {State}
-OneshotEventIntent tech events information for {City} {State}
 OneshotEventIntent event information for {City} on {Date}
 OneshotEventIntent tech events information for {City} on {Date}
 OneshotEventIntent event information for {Date}
 OneshotEventIntent tech events information for {Date}
 OneshotEventIntent when is next event
 OneshotEventIntent when is next tech event
-OneshotEventIntent when is next event in {City} {State}
-OneshotEventIntent when is next tech event in {City} {State}
-OneshotEventIntent when is next event in {City} {State} on {Date}
-OneshotEventIntent when is next tech event in {City} {State} on {Date}
 OneshotEventIntent when is next event on {Date}
 OneshotEventIntent when is next tech event on {Date}
 OneshotEventIntent when is the next event for {City}
 OneshotEventIntent when is the next tech event for {City}
-OneshotEventIntent when is the next event for {City} {State}
-OneshotEventIntent when is the next tech event for {City} {State}
 OneshotEventIntent when is the next event for {City} city
 OneshotEventIntent when is the next tech event for {City} city
 OneshotEventIntent when is the next event for {City} for {Date}
@@ -100,8 +79,6 @@ OneshotEventIntent event information for {City} on {Date}
 OneshotEventIntent tech event information for {City} on {Date}
 OneshotEventIntent when is the next event for {City} for {Date}
 OneshotEventIntent when is the next tech for {City} for {Date}
-OneshotEventIntent when is next event in {City} {State} on {Date}
-OneshotEventIntent when is next tech event in {City} {State} on {Date}
 OneshotEventIntent get events for {City} {Date}
 OneshotEventIntent get tech events for {City} {Date}
 OneshotEventIntent get the events for {City} {Date}

@@ -8,10 +8,6 @@
           "type": "LIST_OF_CITIES"
         },
         {
-          "name": "State",
-          "type": "LIST_OF_STATES"
-        },
-        {
           "name": "Date",
           "type": "AMAZON.DATE"
         }
@@ -23,10 +19,6 @@
         {
           "name": "City",
           "type": "LIST_OF_CITIES"
-        },
-        {
-          "name": "State",
-          "type": "LIST_OF_STATES"
         },
         {
           "name": "Date",
