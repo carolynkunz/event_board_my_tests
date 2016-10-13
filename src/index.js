@@ -19,10 +19,10 @@ TechEvents.prototype.constructor = TechEvents;
 
 // ----------------------- Override AlexaSkill request and intent handlers -----------------------
 
-TechEvents.prototype.eventHandlers.onSessionStarted = function (sessionStartedRequest, session) {
-    console.log('onSessionStarted requestId: ' + sessionStartedRequest.requestId
-        + ', sessionId: ' + session.sessionId);
-};
+// TechEvents.prototype.eventHandlers.onSessionStarted = function (sessionStartedRequest, session) {
+//     console.log('onSessionStarted requestId: ' + sessionStartedRequest.requestId
+//         + ', sessionId: ' + session.sessionId);
+// };
 
 // Bind to the application launch event.
 TechEvents.prototype.eventHandlers.onLaunch = function (launchRequest, session, response) {
@@ -32,10 +32,10 @@ TechEvents.prototype.eventHandlers.onLaunch = function (launchRequest, session, 
     handleWelcomeRequest(response);
 };
 
-TechEvents.prototype.eventHandlers.onSessionEnded = function (sessionEndedRequest, session) {
-    console.log('onSessionEnded requestId: ' + sessionEndedRequest.requestId
-        + ', sessionId: ' + session.sessionId);
-};
+// TechEvents.prototype.eventHandlers.onSessionEnded = function (sessionEndedRequest, session) {
+//     console.log('onSessionEnded requestId: ' + sessionEndedRequest.requestId
+//         + ', sessionId: ' + session.sessionId);
+// };
 
 TechEvents.prototype.intentHandlers = {
     'OneshotEventIntent': function (intent, session, response) {
@@ -111,7 +111,7 @@ function handleHelpRequest(response) {
     const speechOutput = 'I can lead you through providing a city and '
         + 'day of the week to get event information, '
         + 'or you can simply open Tech Events and ask a question like, '
-        + 'get tide information for Seattle on Saturday. '
+        + 'get event information for Seattle on Saturday. '
         + 'For a list of supported cities, ask what cities are supported. '
         + 'Or you can say exit. '
         + repromptText;
@@ -139,7 +139,7 @@ function handleCityDialogueRequest(intent, session, response) {
     if (cityStation.error) {
         repromptText = 'Currently, I know event information for these cities: '
           + getAllStationsText()
-            + 'Which city would you like tide information for?';
+            + 'Which city would you like event information for?';
         // if we received a value for the incorrect city, repeat it to the user,
         // otherwise we received an empty slot
         speechOutput = cityStation.city ? 'I\'m sorry, I don\'t have any data for '
@@ -172,7 +172,7 @@ function handleDateDialogueRequest(intent, session, response) {
         console.log('handleDateDialogueRequest: Date hasn\'t been set, so asking '
           + ' for date.');
         repromptText = 'Please try again saying a day of the week, for example, Saturday. '
-            + 'For which date would you like tide information?';
+            + 'For which date would you like event information?';
         speechOutput = 'I\'m sorry, I didn\'t understand that date. ' + repromptText;
 
         response.ask(speechOutput, repromptText);
@@ -232,7 +232,7 @@ function handleOneshotEventRequest(intent, session, response) {
         // Invalid date. set city in session and prompt for date
         session.attributes.city = cityStation;
         repromptText = 'Please try again saying a day of the week, for example, Saturday. '
-            + 'For which date would you like tide information?';
+            + 'For which date would you like event information?';
         speechOutput = 'I\'m sorry, I didn\'t understand that date. ' + repromptText;
 
         response.ask(speechOutput, repromptText);
@@ -258,7 +258,8 @@ function getFinalEventResponse(cityStation, date, response) {
           let chosenEvent = JSON.parse(eventResponse).results[0];
           console.log('eventResponseCallback: make event request' + chosenEvent);
             speechOutput = 'I\'ve found an event. Head to ' + chosenEvent.name
-                  + ' at ' + getFriendlyTime(chosenEvent.time)
+                  + ' at ' + chosenEvent.time
+                  // + ' at ' + getFriendlyTime(chosenEvent.time)
                   + ' on ' + getFriendlyWeekday(chosenEvent.time);
         }
 
@@ -266,9 +267,9 @@ function getFinalEventResponse(cityStation, date, response) {
     });
 }
 
-function getFriendlyTime(epochTime){
-  return '9pm';
-}
+// function getFriendlyTime(epochTime){
+//   return '9pm';
+// }
 
 function getFriendlyWeekday(epochTime){
  return 'Monday';
@@ -283,7 +284,7 @@ function makeEventRequest(city, date, eventResponseCallback) {
       + '&desc=False&status=upcoming&sig_id=211406069&sig=9d796cdae277e6882d092574eb0cb74c3bca0539';
     const requestUrl = url + queryString;
 
-    console.log('makeEventRequest: making request to '+requestUrl);
+    console.log('makeEventRequest: making request to '+ requestUrl);
     const req = https.request(requestUrl, function (res) {
       let chunks = [];
 
@@ -321,7 +322,8 @@ function getCityStationFromIntent(intent, assignDefault) {
             }
         }
     } else {
-        // lookup the city. Sample skill uses well known mapping of a few known cities to station id.
+        // lookup the city. Sample skill uses well known mapping of a few known
+        // cities to station id.
         const cityName = citySlot.value;
         if (CITIES[cityName.toLowerCase()]) {
             return {
@@ -337,7 +339,8 @@ function getCityStationFromIntent(intent, assignDefault) {
     }
 }
 
-// Gets the date from the intent, defaulting to today if none provided, or returns an error
+// Gets the date from the intent, defaulting to today if none provided,
+// or returns an error
 function getDateFromIntent(intent) {
 
     const dateSlot = intent.slots.Date;
