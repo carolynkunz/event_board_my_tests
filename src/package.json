@@ -4,10 +4,10 @@
   "description": "A skill that allows you to find out what tech events are coming up in your city.",
   "main": "index.js",
   "dependencies": {
+    "alexa-sdk": "^1.0.6",
     "body-parser": "^1.15.2",
     "express": "^4.14.0",
-    "morgan": "^1.7.0",
-    "alexa-sdk": "^1.0.6"
+    "morgan": "^1.7.0"
   },
   "devDependencies": {},
   "scripts": {

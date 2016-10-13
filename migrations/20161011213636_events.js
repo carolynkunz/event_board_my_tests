@@ -6,6 +6,7 @@ exports.up = function(knex) {
     table.string('event_name').notNullable().defaultTo('');
     table.string('event_date').notNullable().defaultTo('');
     table.string('event_time').notNullable().defaultTo('');
+    table.boolean('event_brite').notNullable().defaultTo('');
     table.timestamps(true, true);
   });
 };

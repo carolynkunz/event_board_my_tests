@@ -39,7 +39,7 @@ router.get('/events/:id', (req, res, next) => {
 });
 
 router.post('/events', (req, res, next) => {
-  const { eventName, eventDate, eventTime } = req.body;
+  const { eventName, eventDate, eventTime, eventRsvp } = req.body;
 
   if (!eventName || !eventName.trim()) {
     return next(boom.create(400, 'Event name must not be blank'));
@@ -53,7 +53,12 @@ router.post('/events', (req, res, next) => {
     return next(boom.create(400, 'Event time must not be blank'));
   }
 
-  const insertEvent = { eventName, eventDate, eventTime };
+  if (!eventRsvp || !eventRsvp.trim()) {
+    return next(boom.create(400, 'Event RSVP must not be blank'));
+  }
+
+
+  const insertEvent = { eventName, eventDate, eventTime, eventRsvp };
 
   knex('events')
     .insert(decamelizeKeys(insertEvent), '*')
@@ -76,7 +81,7 @@ router.patch('/events/:id', (req, res, next) => {
         throw boom.create(404, 'Not Found');
       }
 
-      const { eventName, eventDate, eventTime } = req.body;
+      const { eventName, eventDate, eventTime, eventRsvp } = req.body;
       const updateEvent = {};
 
       if (eventName) {
@@ -89,6 +94,10 @@ router.patch('/events/:id', (req, res, next) => {
 
       if (eventTime) {
         updateEvent.eventTime = eventTime;
+      }
+
+      if (eventRsvp) {
+        updateEvent.eventRsvp = eventRsvp;
       }
 
       return knex('events')
