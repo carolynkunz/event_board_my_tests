@@ -92,8 +92,8 @@ AlexaSkill.prototype.execute = function (event, context) {
         console.log("version: " + event.version);
         console.log("session new: " + event.session.new);
         console.log("session applicationId: " + event.session.application.applicationId);
-        console.log("session attributes: " + event.session.attributes.string);
         console.log("user userId: " + event.session.user.userId);
+        AlexaSkill.userId = event.session.user.userId;
 
         // Validate that this request originated from authorized source.
         if (this._appId && event.session.application.applicationId !== this._appId) {

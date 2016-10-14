@@ -26,19 +26,15 @@ TechEvents.prototype.eventHandlers.onSessionStarted = function (sessionStartedRe
 
 // Bind to the application launch event.
 TechEvents.prototype.eventHandlers.onLaunch = function (launchRequest, session, response) {
-    // console.log('onLaunch requestId: ' + launchRequest.requestId + ', sessionId: ' + session.sessionId);
-
-    // call out handle welcome request function to kick off the conversation.
     handleWelcomeRequest(response);
 };
 
 TechEvents.prototype.eventHandlers.getUser = function (userRequest, session) {
-
+  const user = AlexaSkill.userId;
+  console.log('Rachelle\'s user id!!!!!: ' + user);
 };
 
 TechEvents.prototype.eventHandlers.onSessionEnded = function (sessionEndedRequest, session) {
-    // console.log('onSessionEnded requestId: ' + sessionEndedRequest.requestId
-    //     + ', sessionId: ' + session.sessionId);
 };
 
 TechEvents.prototype.intentHandlers = {
@@ -263,32 +259,27 @@ function getFinalEventResponse(cityStation, date, response) {
           // console.log('eventResponseCallback: make event request' + chosenEvent);
             speechOutput = 'I\'ve found an event. Head to ' + chosenEvent.name
                   // + ' at ' + chosenEvent.time
-                  + ' at ' + getFriendlyTime(chosenEvent.time)
-                  + ' on ' + getFriendlyWeekday(chosenEvent.time);
+                  + ' at ' + utcToLocalTime(chosenEvent.time)
+                  + ' on ' + utcToLocalDate(chosenEvent.time);
         }
 
         response.tellWithCard(speechOutput, 'TechEvents', speechOutput);
     });
 }
 
-function getFriendlyTime(epochTime){
-  var now = new Date(1476383573);
+function utcToLocalDate(epochTime){
+  let future = new Date(1476752400000);
+  const convertFutureDate = future.toLocaleDateString().toString();
 
-  var utcDate = new Date(new Date().getTime());
-  // var cat = new Date(utcDate.toString().replace(/UTC.*/g,"") + utcDate.getYear());
-  var date = utcDate.toUTCString();
-  // console.log(date);
+  return convertFutureDate;
 
-  // var splitDate = date.split('');
-  // console.log(splitDate);
-
-  // console.log(cat);
-
-  return utcDate;
 }
 
-function getFriendlyWeekday(epochTime){
- return 'Monday';
+function utcToLocalTime(epochTime){
+  let future = new Date(1476752400000);
+  const convertFutureTime = future.toLocaleTimeString().toString();
+
+  return convertFutureTime;
 }
 
 function makeEventRequest(city, date, eventResponseCallback) {
