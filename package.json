@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/carolynkunz/tech_events#readme",
   "dependencies": {
+    "alexa-sdk": "^1.0.6",
     "body-parser": "^1.15.2",
     "boom": "^4.1.0",
     "express": "^4.14.0",

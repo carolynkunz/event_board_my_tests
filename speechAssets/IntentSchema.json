@@ -8,8 +8,8 @@
           "type": "LIST_OF_CITIES"
         },
         {
-          "name": "Date",
-          "type": "AMAZON.DATE"
+          "name": "Topic",
+          "type": "LIST_OF_TOPICS"
         }
       ]
     },
@@ -21,8 +21,8 @@
           "type": "LIST_OF_CITIES"
         },
         {
-          "name": "Date",
-          "type": "AMAZON.DATE"
+          "name": "Topic",
+          "type": "LIST_OF_TOPICS"
         }
       ]
     },

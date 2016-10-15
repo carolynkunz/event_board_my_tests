@@ -1,94 +1,94 @@
 DialogueEventIntent {City}
-DialogueEventIntent {Date}
+DialogueEventIntent {Topic}
 
 OneshotEventIntent get events
 OneshotEventIntent get tech events
-OneshotEventIntent get events for {City} {Date}
-OneshotEventIntent get tech events for {City} {Date}
-OneshotEventIntent get events for {Date}
-OneshotEventIntent get tech events for {Date}
-OneshotEventIntent get events {Date}
-OneshotEventIntent get tech events {Date}
-OneshotEventIntent get events {City} {Date}
-OneshotEventIntent get tech events for {City} {Date}
-OneshotEventIntent get the next event for {City} for {Date}
-OneshotEventIntent get the next tech events for {City} for {Date}
-OneshotEventIntent get the events for {Date}
-OneshotEventIntent get the tech events for {Date}
+OneshotEventIntent get events for {City} {Topic}
+OneshotEventIntent get tech events for {City} {Topic}
+OneshotEventIntent get events for {Topic}
+OneshotEventIntent get tech events for {Topic}
+OneshotEventIntent get events {Topic}
+OneshotEventIntent get tech events {Topic}
+OneshotEventIntent get events {City} {Topic}
+OneshotEventIntent get tech events for {City} {Topic}
+OneshotEventIntent get the next event for {City} for {Topic}
+OneshotEventIntent get the next tech events for {City} for {Topic}
+OneshotEventIntent get the events for {Topic}
+OneshotEventIntent get the tech events for {Topic}
 OneshotEventIntent get event information for {City}
 OneshotEventIntent get tech event information for {City}
 OneshotEventIntent get event information for {City} city
 OneshotEventIntent get tech event information for {City} city
-OneshotEventIntent get event information for {City} for {Date}
-OneshotEventIntent get tech event information for {City} for {Date}
-OneshotEventIntent get event information for {City} on {Date}
-OneshotEventIntent get tech event information for {City} {Date}
+OneshotEventIntent get event information for {City} for {Topic}
+OneshotEventIntent get tech event information for {City} for {Topic}
+OneshotEventIntent get event information for {City} on {Topic}
+OneshotEventIntent get tech event information for {City} {Topic}
 OneshotEventIntent get events for {City}
 OneshotEventIntent get tech events for {City}
-OneshotEventIntent get events for {City} {Date}
-OneshotEventIntent get tech events for {City} {Date}
+OneshotEventIntent get events for {City} {Topic}
+OneshotEventIntent get tech events for {City} {Topic}
 OneshotEventIntent event information
 OneshotEventIntent tech events information
 OneshotEventIntent event information for {City}
 OneshotEventIntent tech events information for {City}
-OneshotEventIntent event information for {City} on {Date}
-OneshotEventIntent tech events information for {City} on {Date}
-OneshotEventIntent event information for {Date}
-OneshotEventIntent tech events information for {Date}
+OneshotEventIntent event information for {City} on {Topic}
+OneshotEventIntent tech events information for {City} on {Topic}
+OneshotEventIntent event information for {Topic}
+OneshotEventIntent tech events information for {Topic}
 OneshotEventIntent when is next event
 OneshotEventIntent when is next tech event
-OneshotEventIntent when is next event on {Date}
-OneshotEventIntent when is next tech event on {Date}
+OneshotEventIntent when is next event on {Topic}
+OneshotEventIntent when is next tech event on {Topic}
 OneshotEventIntent when is the next event for {City}
 OneshotEventIntent when is the next tech event for {City}
 OneshotEventIntent when is the next event for {City} city
 OneshotEventIntent when is the next tech event for {City} city
-OneshotEventIntent when is the next event for {City} for {Date}
-OneshotEventIntent when is the next tech event for {City} for {Date}
-OneshotEventIntent when is the next event for {Date}
-OneshotEventIntent when is the next tech event for {Date}
+OneshotEventIntent when is the next event for {City} for {Topic}
+OneshotEventIntent when is the next tech event for {City} for {Topic}
+OneshotEventIntent when is the next event for {Topic}
+OneshotEventIntent when is the next tech event for {Topic}
 OneshotEventIntent when is today's event
 OneshotEventIntent when is today's tech event
 OneshotEventIntent is there an event today
 OneshotEventIntent is there a tech event today
-OneshotEventIntent when is today's event {Date}
-OneshotEventIntent when is today's tech event {Date}
-OneshotEventIntent when is event on {Date}
-OneshotEventIntent when is tech event on {Date}
-OneshotEventIntent when is the next event for {Date}
-OneshotEventIntent when is the next tech event for {Date}
-OneshotEventIntent when is next event on {Date}
-OneshotEventIntent when is next tech event on {Date}
-OneshotEventIntent get the events for {Date}
-OneshotEventIntent get the tech event for {Date}
-OneshotEventIntent get events for {Date}
-OneshotEventIntent get tech events for {Date}
-OneshotEventIntent get events {Date}
-OneshotEventIntent get tech events {Date}
-OneshotEventIntent when is event {Date}
-OneshotEventIntent when is tech event {Date}
-OneshotEventIntent event information for {Date}
-OneshotEventIntent tech event information for {Date}
-OneshotEventIntent when are events in {City} on {Date}
-OneshotEventIntent when are tech events in {City} on {Date}
-OneshotEventIntent get the next event for {City} for {Date}
-OneshotEventIntent get the next tech event for {City} for {Date}
-OneshotEventIntent get events for {City} California {Date}
-OneshotEventIntent get tech events for {City} California {Date}
-OneshotEventIntent event information for {City} on {Date}
-OneshotEventIntent tech event information for {City} on {Date}
-OneshotEventIntent when is the next event for {City} for {Date}
-OneshotEventIntent when is the next tech for {City} for {Date}
-OneshotEventIntent get events for {City} {Date}
-OneshotEventIntent get tech events for {City} {Date}
-OneshotEventIntent get the events for {City} {Date}
-OneshotEventIntent get the tech events for {City} {Date}
-OneshotEventIntent event information for {City} on {Date}
-OneshotEventIntent tech event information for {City} on {Date}
-OneshotEventIntent get event information for {City} on {Date}
-OneshotEventIntent get tech event information for {City} on {Date}
-OneshotEventIntent get events for {City} {Date}
-OneshotEventIntent get tech events for {City} {Date}
+OneshotEventIntent when is today's event {Topic}
+OneshotEventIntent when is today's tech event {Topic}
+OneshotEventIntent when is event on {Topic}
+OneshotEventIntent when is tech event on {Topic}
+OneshotEventIntent when is the next event for {Topic}
+OneshotEventIntent when is the next tech event for {Topic}
+OneshotEventIntent when is next event on {Topic}
+OneshotEventIntent when is next tech event on {Topic}
+OneshotEventIntent get the events for {Topic}
+OneshotEventIntent get the tech event for {Topic}
+OneshotEventIntent get events for {Topic}
+OneshotEventIntent get tech events for {Topic}
+OneshotEventIntent get events {Topic}
+OneshotEventIntent get tech events {Topic}
+OneshotEventIntent when is event {Topic}
+OneshotEventIntent when is tech event {Topic}
+OneshotEventIntent event information for {Topic}
+OneshotEventIntent tech event information for {Topic}
+OneshotEventIntent when are events in {City} on {Topic}
+OneshotEventIntent when are tech events in {City} on {Topic}
+OneshotEventIntent get the next event for {City} for {Topic}
+OneshotEventIntent get the next tech event for {City} for {Topic}
+OneshotEventIntent get events for {City} California {Topic}
+OneshotEventIntent get tech events for {City} California {Topic}
+OneshotEventIntent event information for {City} on {Topic}
+OneshotEventIntent tech event information for {City} on {Topic}
+OneshotEventIntent when is the next event for {City} for {Topic}
+OneshotEventIntent when is the next tech for {City} for {Topic}
+OneshotEventIntent get events for {City} {Topic}
+OneshotEventIntent get tech events for {City} {Topic}
+OneshotEventIntent get the events for {City} {Topic}
+OneshotEventIntent get the tech events for {City} {Topic}
+OneshotEventIntent event information for {City} on {Topic}
+OneshotEventIntent tech event information for {City} on {Topic}
+OneshotEventIntent get event information for {City} on {Topic}
+OneshotEventIntent get tech event information for {City} on {Topic}
+OneshotEventIntent get events for {City} {Topic}
+OneshotEventIntent get tech events for {City} {Topic}
 
 
 SupportedCitiesIntent what cities

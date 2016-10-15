@@ -3,10 +3,7 @@
 const APP_ID = 'amzn1.ask.skill.a119fd8c-0fa9-4a9d-928d-3c4d5cc706c4';
 
 const https = require('https');
-const alexaDateUtil = require('./alexaDateUtil');
-// const location = require('./location');
-
-// The AlexaSkill prototype and helper functions
+// const alexaDateUtil = require('./alexaDateUtil');
 
 let AlexaSkill = require('./AlexaSkill');
 
@@ -21,8 +18,6 @@ EventBoard.prototype.constructor = EventBoard;
 // ----------------------- Override AlexaSkill request and intent handlers -----------------------
 
 EventBoard.prototype.eventHandlers.onSessionStarted = function (sessionStartedRequest, session) {
-    // console.log('onSessionStarted requestId: ' + sessionStartedRequest.requestId
-    //     + ', sessionId: ' + session.sessionId);
 };
 
 // Bind to the application launch event.
@@ -45,12 +40,12 @@ EventBoard.prototype.intentHandlers = {
 
     'DialogueEventIntent': function (intent, session, response) {
         const citySlot = intent.slots.City;
-        const dateSlot = intent.slots.Date;
+        const topicSlot = intent.slots.Topic;
 
         if (citySlot && citySlot.value) {
             handleCityDialogueRequest(intent, session, response);
-        } else if (dateSlot && dateSlot.value) {
-            handleDateDialogueRequest(intent, session, response);
+        } else if (topicSlot && topicSlot.value) {
+            handleTopicDialogueRequest(intent, session, response);
         } else {
             handleNoSlotDialogueRequest(intent, session, response);
         }
@@ -96,9 +91,9 @@ function handleWelcomeRequest(response) {
         },
         repromptOutput = {
             speech: 'I can lead you through providing a city and '
-                + 'day of the week to get event information, '
+                + 'topic to get event information, '
                 + 'or you can simply open Event Board and ask a question like, '
-                + 'get event information for Seattle on Saturday. '
+                + 'get event information for javascript events. '
                 + 'For a list of supported cities, ask what cities are supported. '
                 + whichCityPrompt,
             type: AlexaSkill.speechOutputType.PLAIN_TEXT
@@ -110,7 +105,7 @@ function handleWelcomeRequest(response) {
 function handleHelpRequest(response) {
     const repromptText = 'Which city would you like event information for?';
     const speechOutput = 'I can lead you through providing a city and '
-        + 'day of the week to get event information, '
+        + 'programming skill to get event information, '
         + 'or you can simply open Event Board and ask a question like, '
         + 'get event information for Seattle on Saturday. '
         + 'For a list of supported cities, ask what cities are supported. '
@@ -122,7 +117,6 @@ function handleHelpRequest(response) {
 
 // Handles the case where the user asked or for, or is otherwise being with supported cities
 function handleSupportedCitiesRequest(intent, session, response) {
-    // get city re-prompt
     const repromptText = 'Which city would you like event information for?';
     const speechOutput = 'Currently, I know events information for these cities: '
       + getAllZipcodesText()
@@ -141,8 +135,7 @@ function handleCityDialogueRequest(intent, session, response) {
         repromptText = 'Currently, I know event information for these cities: '
           + getAllZipcodesText()
             + 'Which city would you like event information for?';
-        // if we received a value for the incorrect city, repeat it to the user,
-        // otherwise we received an empty slot
+
         speechOutput = cityZipcode.city ? 'I\'m sorry, I don\'t have any data for '
           + cityZipcode.city + '. ' + repromptText : repromptText;
         response.ask(speechOutput, repromptText);
@@ -150,28 +143,25 @@ function handleCityDialogueRequest(intent, session, response) {
     }
 
     // if we don't have a date yet, go to date. If we have a date, we perform the final request
-    if (session.attributes.date) {
-        getFinalEventResponse(cityZipcode, session.attributes.date, response);
+    if (session.attributes.topic) {
+        getFinalEventResponse(cityZipcode, session.attributes.topic, response);
     } else {
         // set city in session and prompt for date
-        session.attributes.city = cityZipcode;
-        speechOutput = 'For which date?';
-        repromptText = 'For which date would you like event information for '
-          + cityZipcode.city + '?';
+        session.attributes.topic = cityZipcode;
+        speechOutput = 'For which topic?';
+        repromptText = 'For which topic would you like event information for in '
+        + cityZipcode.city + '?';
 
         response.ask(speechOutput, repromptText);
     }
 }
 
 // Handles the dialog step where the user provides a date
-function handleDateDialogueRequest(intent, session, response) {
-    // console.log('handleDateDialogueRequest: Began execution');
-    let date = getDateFromIntent(intent),
+function handleTopicDialogueRequest(intent, session, response) {
+    let topic = getTopicFromIntent(intent),
         repromptText,
         speechOutput;
-    if (!date) {
-        // console.log('handleDateDialogueRequest: Date hasn\'t been set, so asking '
-        //   + ' for date.');
+    if (!topic) {
         repromptText = 'Please try again saying a day of the week, for example, Saturday. '
             + 'For which date would you like event information?';
         speechOutput = 'I\'m sorry, I didn\'t understand that date. ' + repromptText;
@@ -180,14 +170,12 @@ function handleDateDialogueRequest(intent, session, response) {
         return;
     }
 
-    // if we don't have a city yet, go to city. If we have a city, we perform the final request
     if (session.attributes.city) {
-        getFinalEventResponse(session.attributes.city, date, response);
+        getFinalEventResponse(session.attributes.city, topic, response);
     } else {
-        // The user provided a date out of turn. Set date in session and prompt for city
-        session.attributes.date = date;
+        session.attributes.topic = topic;
         speechOutput = 'For which city would you like event information for '
-          + date.displayDate + '?';
+          + topic.displayTopic + '?';
         repromptText = 'For which city?';
 
         response.ask(speechOutput, repromptText);
@@ -197,25 +185,20 @@ function handleDateDialogueRequest(intent, session, response) {
 // Handle no slots, or slot(s) with no values.
 function handleNoSlotDialogueRequest(intent, session, response) {
     if (session.attributes.city) {
-        // get date re-prompt
-        const repromptText = 'Please try again saying a day of the week, for example, Saturday. ';
+        const repromptText = 'Please try again saying a programming topic like react js. ';
         const speechOutput = repromptText;
 
         response.ask(speechOutput, repromptText);
     } else {
-        // get city re-prompt
         handleSupportedCitiesRequest(intent, session, response);
     }
 }
 
 function handleOneshotEventRequest(intent, session, response) {
-
-    // Determine city, using default if none provided
     let cityZipcode = getCityZipcodeFromIntent(intent, true),
         repromptText,
         speechOutput;
     if (cityZipcode.error) {
-        // invalid city. move to the dialogue
         repromptText = 'Currently, I know event information for these cities: '
           + getAllZipcodesText()
             + 'Which city would you like event information for?';
@@ -228,38 +211,31 @@ function handleOneshotEventRequest(intent, session, response) {
     }
 
     // Determine custom date
-    const date = getDateFromIntent(intent);
-    if (!date) {
-        // Invalid date. set city in session and prompt for date
+    const topic = getTopicFromIntent(intent);
+    if (!topic) {
         session.attributes.city = cityZipcode;
-        repromptText = 'Please try again saying a day of the week, for example, Saturday. '
+        repromptText = 'Please try again saying a prorgamming topic, for example, node js. '
             + 'For which date would you like event information?';
-        speechOutput = 'I\'m sorry, I didn\'t understand that date. ' + repromptText;
+        speechOutput = 'I\'m sorry, I didn\'t understand that topic. ' + repromptText;
 
         response.ask(speechOutput, repromptText);
         return;
     }
 
-    // all slots filled, either from the user or by default values. Move to final request
-    getFinalEventResponse(cityZipcode, date, response);
+    getFinalEventResponse(cityZipcode, topic, response);
 }
 
 // Both the one-shot and dialog based paths lead to this method to issue the request
 // they respond to the user with the final answer.
-function getFinalEventResponse(cityZipcode, date, response) {
-    // Issue the request, and respond to the user
-    makeEventRequest(cityZipcode.city, date, function eventResponseCallback(err, eventResponse) {
+function getFinalEventResponse(cityZipcode, topic, response) {
+    makeEventRequest(cityZipcode.city, topic, function eventResponseCallback(err, eventResponse) {
         let speechOutput;
 
         if (err) {
             speechOutput = 'Sorry, the Meetup service is experiencing a problem. Please try again later';
         } else {
-          // console.log('eventResponseCallback: response argument - ' + eventResponse);
-
           let chosenEvent = JSON.parse(eventResponse).results[0];
-          // console.log('eventResponseCallback: make event request' + chosenEvent);
             speechOutput = 'I\'ve found an event. Head to ' + chosenEvent.name
-                  // + ' at ' + chosenEvent.time
                   + ' at ' + utcToLocalTime(chosenEvent.time)
                   + ' on ' + utcToLocalDate(chosenEvent.time);
         }
@@ -273,7 +249,6 @@ function utcToLocalDate(epochTime){
   const convertFutureDate = future.toLocaleDateString().toString();
 
   return convertFutureDate;
-
 }
 
 function utcToLocalTime(epochTime){
@@ -283,25 +258,17 @@ function utcToLocalTime(epochTime){
   return convertFutureTime;
 }
 
-function makeEventRequest(city, date, eventResponseCallback) {
+function makeEventRequest(city, topic, eventResponseCallback) {
   //https://api.meetup.com/2/open_events?zip=10013&format=json&topic=javascript&page=20&radius=5&status=upcoming&sign=true&key=3c5b746e62d97d3766666e603140b
   const url = 'https://api.meetup.com/2/open_events';
 
   let zipcode = '10013'
-  let topic = 'javascript'
+  let programming_topic = 'javascript'
 
-  const queryString = '?zip=' + zipcode + '&format=json&topic=' + topic + '&page=20&radius=5&status=upcoming&sign=true&key=3c5b746e62d97d3766666e603140b';
+  const queryString = '?zip=' + zipcode + '&format=json&topic=' + programming_topic + '&page=20&radius=5&status=upcoming&sign=true&key=3c5b746e62d97d3766666e603140b';
   const requestUrl = url + queryString;
   console.log(requestUrl);
 
-    // const url = 'https://api.meetup.com/2/open_events';
-    // const topic = 'javascript'
-    // const queryString = '?' + 'zip=98119&and_text=False&offset=0&city=' + city.toLowerCase()
-    //   + '&format=json&limited_events=False&topic=' + topic + '&photo-host=public&page=20&radius=5 '
-    //   + '&desc=False&status=upcoming&sig_id=211406069&sig=9d796cdae277e6882d092574eb0cb74c3bca0539';
-    // const requestUrl = url + queryString;
-
-    // console.log('makeEventRequest: making request to '+ requestUrl);
     const req = https.request(requestUrl, function (res) {
       let chunks = [];
 
@@ -311,7 +278,6 @@ function makeEventRequest(city, date, eventResponseCallback) {
 
       res.on('end', function () {
         const responseBody = Buffer.concat(chunks);
-        // console.log('makeEventRequest: response recieved - '+ responseBody);
 
         eventResponseCallback(null, responseBody);
       });
@@ -320,35 +286,10 @@ function makeEventRequest(city, date, eventResponseCallback) {
     req.end();
 }
 
-// location((location) => {
-//   if(!location) {
-//     console.log('Unable to guess locaiton');
-//     return;
-//   }
-//   console.log('city: ' + location.city);
-//   console.log('log/lat: ' + location.loc);
-// });
-
-// Gets the city from the intent, or returns an error
-// need function start below if we plan to keep a default city
-// function getCityZipcodeFromIntent(intent, assignDefault) {
 function getCityZipcodeFromIntent(intent) {
 
     const citySlot = intent.slots.City;
-    // slots can be missing, or slots can be provided but with empty value.
-    // must test for both.
-    // if (!citySlot || !citySlot.value) {
-    //     if (!assignDefault) {
-    //         return {
-    //             error: true
-    //         }
-    //     } else {
-    //         // For sample skill, default to Seattle.
-    //         return {
-    //             city: 'seattle',
-    //             zipcode: CITIES.seattle
-    //         }
-    //     }
+
     if (!citySlot || !citySlot.value) {
       const repromptText = 'Which city would you like event information for?';
       const speechOutput = 'Currently, I know events information for these cities: '
@@ -357,8 +298,6 @@ function getCityZipcodeFromIntent(intent) {
 
       response.ask(speechOutput, repromptText);
     } else {
-        // lookup the city. Sample skill uses well known mapping of a few known
-        // cities to zipcode id.
         const cityName = citySlot.value;
         if (CITIES[cityName.toLowerCase()]) {
             return {
@@ -376,43 +315,42 @@ function getCityZipcodeFromIntent(intent) {
 
 // Gets the date from the intent, defaulting to today if none provided,
 // or returns an error
-function getDateFromIntent(intent) {
+function getTopicFromIntent(intent) {
 
-    const dateSlot = intent.slots.Date;
-    // slots can be missing, or slots can be provided but with empty value.
-    // must test for both.
-    if (!dateSlot || !dateSlot.value) {
+    const topicSlot = intent.slots.Topic;
+    if (!topicSlot || !topicSlot.value) {
         // default to today
         return {
-            displayDate: 'Today',
-            requestDateParam: 'date=today'
-        }
-    } else {
-
-        const date = new Date(dateSlot.value);
-
-        // format the request date like YYYYMMDD
-        let month = (date.getMonth() + 1);
-        month = month < 10 ? '0' + month : month;
-        let dayOfMonth = date.getDate();
-        dayOfMonth = dayOfMonth < 10 ? '0' + dayOfMonth : dayOfMonth;
-        let requestDay = 'begin_date=' + date.getFullYear() + month + dayOfMonth
-            + '&range=24';
-
-        return {
-            displayDate: alexaDateUtil.getFormattedDate(date),
-            requestDateParam: requestDay
+            displayTopic: 'JavaScript',
+            requestTopicParam: 'topic=javascript'
         }
     }
+    // else {
+    //
+    //     const date = new Date(dateSlot.value);
+    //
+    //     let month = (date.getMonth() + 1);
+    //     month = month < 10 ? '0' + month : month;
+    //     let dayOfMonth = date.getDate();
+    //     dayOfMonth = dayOfMonth < 10 ? '0' + dayOfMonth : dayOfMonth;
+    //     let requestDay = 'begin_date=' + date.getFullYear() + month + dayOfMonth
+    //         + '&range=24';
+    //
+    //     return {
+    //         displayDate: alexaDateUtil.getFormattedDate(date),
+    //         requestDateParam: requestDay
+    //     }
+    // }
 }
 
 function getAllZipcodesText() {
     let zipcodeList = '';
-    for (var zipcode in CITIES) {
+    for (let zipcode in CITIES) {
         zipcodeList += zipcode + ', ';
     }
 
     return zipcodeList;
+    console.log(zipcodeList);
 }
 
 // Create the handler that responds to the Alexa Request.
