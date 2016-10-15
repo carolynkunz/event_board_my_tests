@@ -9,35 +9,35 @@ const alexaDateUtil = require('./alexaDateUtil');
 
 let AlexaSkill = require('./AlexaSkill');
 
-const TechEvents = function () {
+const EventBoard = function () {
     AlexaSkill.call(this, APP_ID);
 };
 
 // Extend AlexaSkill
-TechEvents.prototype = Object.create(AlexaSkill.prototype);
-TechEvents.prototype.constructor = TechEvents;
+EventBoard.prototype = Object.create(AlexaSkill.prototype);
+EventBoard.prototype.constructor = EventBoard;
 
 // ----------------------- Override AlexaSkill request and intent handlers -----------------------
 
-TechEvents.prototype.eventHandlers.onSessionStarted = function (sessionStartedRequest, session) {
+EventBoard.prototype.eventHandlers.onSessionStarted = function (sessionStartedRequest, session) {
     // console.log('onSessionStarted requestId: ' + sessionStartedRequest.requestId
     //     + ', sessionId: ' + session.sessionId);
 };
 
 // Bind to the application launch event.
-TechEvents.prototype.eventHandlers.onLaunch = function (launchRequest, session, response) {
-    handleWelcomeRequest(response);
-};
-
-TechEvents.prototype.eventHandlers.getUser = function (userRequest, session) {
+EventBoard.prototype.eventHandlers.onLaunch = function (launchRequest, session, response) {
   const user = AlexaSkill.userId;
-  console.log('Rachelle\'s user id!!!!!: ' + user);
+  console.log('Rachelle\'s userId: ' + user);
+  handleWelcomeRequest(response);
 };
 
-TechEvents.prototype.eventHandlers.onSessionEnded = function (sessionEndedRequest, session) {
+// EventBoard.prototype.eventHandlers.getUser = function (userRequest, session) {
+// };
+
+EventBoard.prototype.eventHandlers.onSessionEnded = function (sessionEndedRequest, session) {
 };
 
-TechEvents.prototype.intentHandlers = {
+EventBoard.prototype.intentHandlers = {
     'OneshotEventIntent': function (intent, session, response) {
         handleOneshotEventRequest(intent, session, response);
     },
@@ -88,7 +88,7 @@ const CITIES = {
 function handleWelcomeRequest(response) {
     const whichCityPrompt = 'Which city would you like event information for?',
         speechOutput = {
-            speech: '<speak>Welcome to Tech Events. '
+            speech: '<speak>Welcome to Event Board. '
                 + whichCityPrompt
                 + '</speak>',
             type: AlexaSkill.speechOutputType.SSML
@@ -96,7 +96,7 @@ function handleWelcomeRequest(response) {
         repromptOutput = {
             speech: 'I can lead you through providing a city and '
                 + 'day of the week to get event information, '
-                + 'or you can simply open Tech Events and ask a question like, '
+                + 'or you can simply open Event Board and ask a question like, '
                 + 'get event information for Seattle on Saturday. '
                 + 'For a list of supported cities, ask what cities are supported. '
                 + whichCityPrompt,
@@ -110,7 +110,7 @@ function handleHelpRequest(response) {
     const repromptText = 'Which city would you like event information for?';
     const speechOutput = 'I can lead you through providing a city and '
         + 'day of the week to get event information, '
-        + 'or you can simply open Tech Events and ask a question like, '
+        + 'or you can simply open Event Board and ask a question like, '
         + 'get event information for Seattle on Saturday. '
         + 'For a list of supported cities, ask what cities are supported. '
         + 'Or you can say exit. '
@@ -263,7 +263,7 @@ function getFinalEventResponse(cityStation, date, response) {
                   + ' on ' + utcToLocalDate(chosenEvent.time);
         }
 
-        response.tellWithCard(speechOutput, 'TechEvents', speechOutput);
+        response.tellWithCard(speechOutput, 'EventBoard', speechOutput);
     });
 }
 
@@ -389,6 +389,6 @@ function getAllStationsText() {
 
 // Create the handler that responds to the Alexa Request.
 exports.handler = function (event, context) {
-    const techEvents = new TechEvents();
-    techEvents.execute(event, context);
+    const eventBoard = new EventBoard();
+    eventBoard.execute(event, context);
 };

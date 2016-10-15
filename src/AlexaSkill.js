@@ -89,10 +89,6 @@ AlexaSkill.prototype.intentHandlers = {};
 
 AlexaSkill.prototype.execute = function (event, context) {
     try {
-        console.log("version: " + event.version);
-        console.log("session new: " + event.session.new);
-        console.log("session applicationId: " + event.session.application.applicationId);
-        console.log("user userId: " + event.session.user.userId);
         AlexaSkill.userId = event.session.user.userId;
 
         // Validate that this request originated from authorized source.
@@ -108,7 +104,7 @@ AlexaSkill.prototype.execute = function (event, context) {
 
         if (event.session.new) {
             this.eventHandlers.onSessionStarted(event.request, event.session);
-            this.eventHandlers.getUser(event.request, event.session);
+            // this.eventHandlers.getUser(event.request, event.session);
         }
 
         // Route the request to the proper handler which may have been overriden.
