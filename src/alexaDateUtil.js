@@ -12,6 +12,8 @@
  * Provides date and time utilities to format responses in
  * a manner appropriate for speech output.
  */
+'use strict';
+
 const alexaDateUtil = (function () {
 
     const DAYS_OF_MONTH = [
@@ -99,7 +101,7 @@ const alexaDateUtil = (function () {
             const hours = date.getHours();
             const minutes = date.getMinutes();
 
-            const periodOfDay;
+            let periodOfDay;
             if (hours < 12) {
                 periodOfDay = ' in the morning';
             } else if (hours < 17) {
